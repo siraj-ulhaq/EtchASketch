@@ -1,0 +1,9 @@
+.container {
+    height: 960px;
+    width: 960px;
+    /* border-style: solid; */
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    box-sizing: border-box;
+}

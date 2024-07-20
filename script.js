@@ -24,19 +24,15 @@ function addPixels(rows, columns, height, width) {
             square.classList = "square";
             square.addEventListener("mouseover", ()=> {
                 console.log("hovered");
-                square.style.cssText += "background-color: blue; border-style: None;";
+                square.style.cssText += "background-color: black; border-style: None;";
+                if (square.style.opacity <= 0.9) {
+                    square.style.opacity = +square.style.opacity + 0.2;
+                }
             })
             row.appendChild(square);
         }
     }
 }
-
-// function createGrid() {
-//     const newGrid = document.createElement("div");
-//     newGrid.style.cssText = "height: " + height + "px; width: " + width + "px; display: flex; flex-direction: column;";
-//     newGrid.style.cssText += "gap: 0px; box-sizing: border-box;";
-//     return newGrid;
-// }
 
 addRows(rows);
 addPixels(rows, columns, height, width);

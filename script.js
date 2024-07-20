@@ -1,26 +1,79 @@
-// const rowBlock = document.createElement("div");
-const grid = document.querySelector(".container");
+let grid = document.querySelector(".container");
 
-let rows = 16;
-let columns = 16;
-let width = 960;
-let height = 960;
+const rows = 16;
+const columns = 16;
+const width = 960;
+const height = 960;
 
-for(let i=1; i<=rows; i++){
-    const rowBlock = document.createElement("div");
-    rowBlock.style.cssText = "height: " + height/rows + "px; width: " + width + "px; display: flex; box-sizing: border-box;";
-    rowBlock.classList = "row"+i;
-    grid.appendChild(rowBlock);
-}
-
-for (let j=1;j<=rows;j++){
-    const row = document.querySelector(".row"+j);
-    for (let k=1;k<=columns;k++){
-        const square = document.createElement("div");
-        square.style.cssText = "height: " + height/rows + "px; width: " + width/columns + "px; border-style: solid; box-sizing: border-box;";
-        row.appendChild(square);
+function addRows(rows) {
+    for(let i=1; i<=rows; i++){
+        const rowBlock = document.createElement("div");
+        rowBlock.style.cssText = "height: " + height/rows + "px; width: " + width + "px; display: flex; box-sizing: border-box;";
+        rowBlock.classList = "row"+i;
+        rowBlock.setAttribute("id", "row");
+        grid.appendChild(rowBlock);
     }
 }
+
+function addPixels(rows, columns, height, width) {
+    for (let j=1;j<=rows;j++){
+        const row = document.querySelector(".row"+j);
+        for (let k=1;k<=columns;k++){
+            const square = document.createElement("div");
+            square.style.cssText = "height: " + height/rows + "px; width: " + width/columns + "px; border-style: solid; box-sizing: border-box;";
+            square.classList = "square";
+            square.addEventListener("mouseover", ()=> {
+                console.log("hovered");
+                square.style.cssText += "background-color: blue; border-style: None;";
+            })
+            row.appendChild(square);
+        }
+    }
+}
+
+// function createGrid() {
+//     const newGrid = document.createElement("div");
+//     newGrid.style.cssText = "height: " + height + "px; width: " + width + "px; display: flex; flex-direction: column;";
+//     newGrid.style.cssText += "gap: 0px; box-sizing: border-box;";
+//     return newGrid;
+// }
+
+addRows(rows);
+addPixels(rows, columns, height, width);
+
+const btn = document.querySelector(".change");
+
+btn.addEventListener("click", ()=> {
+    let keeprunning = true;
+    while(keeprunning){
+        let input = prompt("How many squares per side of grid");
+        if ((input > 100) || (input < 0)) {
+            alert("Invalid number, Please try again!");
+        } else {
+            const num = document.querySelectorAll("#row");
+            const arr = Array.from(num);
+            for (let i=1; i<=arr.length;i++){
+                const rowToremove = document.querySelector(".row"+i);
+                grid.removeChild(rowToremove);
+            }
+            let newRows = input;
+            let newColumns = newRows;
+            addRows(newRows);
+            addPixels(newRows, newColumns, height, width);
+            keeprunning = false;
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
